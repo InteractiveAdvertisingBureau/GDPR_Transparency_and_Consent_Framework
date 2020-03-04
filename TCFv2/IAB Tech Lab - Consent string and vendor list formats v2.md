@@ -1145,7 +1145,7 @@ BObdrPUOevsguAfDqFENCNAAAAAmeAAA.OevsguAfDq
 
 On occasion, legal bases for processing a user's personal data are achieved outside of the TCF. This would be considered an out-of-band (OOB) legal basis. To signal whether using an OOB legal bases is allowed requires:
 
-*   An indication that some CMP has, at some time, disclosed the vendor in a global context to the user in the _**[DisclosedVendors](#disclosed-vendors-oob)**_ segment
+*   An indication whether some CMP has, at some time, disclosed the vendor in a global context to the user in the _**[DisclosedVendors](#disclosed-vendors-oob)**_ segment
 *   The use of a global-context TC string
 *   The publisher to allow vendors, in general, to use OOB legal bases
 *   Optionally, a list of specific vendors allowed to use OOB legal bases in the _**[AllowedVendors](#allowed-vendors-oob)**_ segment
@@ -1158,51 +1158,8 @@ If a publisher supports OOB legal bases, but only for select vendors, a CMP shal
 
 #### When to Include Allowed and Disclosed Vendor Segments
 
-There are three primary conditions to consider when determining whether or not to include one or both of the OOB Signal Segments – They are whether or not the TC string is a globally-scoped string (**P**), whether the publisher supports OOB Signaling (**R**), and whether or not the TC string is intended to be saved in a cookie or other storage mechanism as opposed to being passed in a TCData object through the CMP API to Vendors for downstream interpretation.  Representing those conditions symbolically:
+There are three primary conditions to consider when determining whether or not to include one or both of the OOB Signal Segments – They are whether or not the TC string is a globally-scoped string, whether the publisher supports OOB Signaling, and whether or not the TC string is intended to be saved in a cookie or other storage mechanism as opposed to being passed in a TCData object through the CMP API to Vendors for downstream interpretation. This is a situation in which the information in the TC string may differ based on whether the string is meant to be saved in a cookie or other storage mechanism or passed in a TCData object.
 
-  * **P**: TC string is globally-scoped
-  * **Q**: TC string is for saving in a cookie, local storage or some other mechanism (not to be surfaced through the CMP API for Vendors)
-  * **R**: The Publisher Supports OOB Signaling
-  * **S**: Should Include Disclosed Vendors Segment
-  * **T**: Should Include Allowed Vendors Segment
-
-**Whether to include the _[DisclosedVendors](#disclosed-vendors-oob)_ Segment is expressed as**
-
-**P ∧ Q ∨ R → S**
-
-In plain english, if the TC string is globally-scoped (**P**) and the TC string is intended to be saved (**Q**) or the publisher supports OOB Signaling (**R**) then the _**[DisclosedVendors](#disclosed-vendors-oob)**_ Segment should be included (**S**).
-
-**Truth Table for Disclosed Vendors**
-
-| P | Q | R | S |
-|---|---|---|---|
-| T | T | T | T |
-| T | T | F | T |
-| T | F | T | T |
-| T | F | F | F |
-| F | T | T | F |
-| F | T | F | F |
-| F | F | T | F |
-| F | F | F | F |
-
-**Whether to include the _[AllowedVendors](#allowed-vendors-oob)_ Segment is expressed as**
-
-**P ∧ R ∧ ¬Q → T**
-
-In plain english, if the TC string is globally-scoped (**P**) and the publisher supports OOB Signaling (**R**) and it is _**not**_ intended for saving (**¬Q**) then the _**[AllowedVendors](#allowed-vendors-oob)**_ Segment should be included (**T**).
-
-**Truth Table for Allowed Vendors**
-
-| P | R | ¬Q | T |
-|---|---|---|---|
-| T | T | T | T |
-| T | T | F | F |
-| T | F | T | F |
-| T | F | F | F |
-| F | T | T | F |
-| F | T | F | F |
-| F | F | T | F |
-| F | F | F | F |
 
 ##### Examples
 
