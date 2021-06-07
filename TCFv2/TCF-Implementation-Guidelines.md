@@ -22,6 +22,7 @@ Policy FAQ, webinars, and other resources are available at
 &nbsp;&nbsp;&nbsp;&nbsp;**[How do I evaluate the details provided in the TC String?](#evaluatetcstring)**<br>
 &nbsp;&nbsp;&nbsp;&nbsp;**[How should I handle multiple signals with different information?](#mergesignals)**<br>
 &nbsp;&nbsp;&nbsp;&nbsp;**[What is OOB?](#oob)**<br>
+&nbsp;&nbsp;&nbsp;&nbsp;**[When do I include Allowed Vendors and/or Disclosed Vendors in the TC string?](#when-do-i-include-allowed-vendors)**<br>
 ### [Publisher guidelines](#pub)
 &nbsp;&nbsp;&nbsp;&nbsp;**[What is a Consent Management Platform (CMP) and why do I, as a Publisher, need one?](#whatiscmp)**<br>
 &nbsp;&nbsp;&nbsp;&nbsp;**[What publisher controls are available? What happened to Pubvendors?](#pubvendor)**<br>
@@ -137,6 +138,36 @@ Sometimes two or more TC Strings might contain different preferences for differe
 
 ## What is OOB? <a name="oob"></a>
 OOB is an abbreviation for Out-of-Band legal basis and represents a signal that transparency & consent was achieved for a vendor outside of the TCF, which is an in-band establishment. Publishers can choose whether to support OOB or not, and if they do, they may provide a list of approved vendors allowed to claim OOB. Look for details outlined in documentation for the TC String.
+
+#### When to Include Allowed and Disclosed Vendor Segments in the TC string
+
+There are three primary conditions to consider when determining whether or not to include one or both of the OOB Signal Segments – They are whether or not the TC string is a globally-scoped string (**P**), whether the publisher supports OOB Signaling (**R**), and whether or not the TC string is intended to be saved in a cookie or other storage mechanism as opposed to being passed in a TCData object through the CMP API to Vendors for downstream interpretation.  Representing those conditions symbolically:
+
+  * **P**: TC string is globally-scoped
+  * **Q**: TC string is for saving in a cookie, local storage or some other mechanism (in the below truth table, a F for this value represents the TC string being surfaced through the CMP API for Vendors)
+  * **R**: The Publisher Supports OOB Signaling
+  * **S**: Should Include Disclosed Vendors Segment
+  * **T**: May Include Allowed Vendors Segment
+
+**Whether to include the _[DisclosedVendors](#disclosed-vendors-oob)_ Segment is expressed as**
+
+**P ∧ Q ∨ R → S**
+
+In plain english, if the TC string is globally-scoped (**P**) and the TC string is intended to be saved (**Q**) or the publisher supports OOB Signaling (**R**) then the _**[DisclosedVendors](#disclosed-vendors-oob)**_ Segment should be included (**S**).
+
+
+**Truth Table for Disclosed Vendors**
+
+| P | Q | R | S | T |
+|---|---|---|---|---|
+| T | T | T | T | F |
+| T | T | F | T | F |
+| T | F | T | T | T |
+| T | F | F | F | F |
+| F | T | T | F | F |
+| F | T | F | F | F |
+| F | F | T | F | F |
+| F | F | F | F | F |
 
 # Publisher guidelines <a name="pub"></a>
 ## What is a Consent Management Platform (CMP) and why do I, as a Publisher, need one?<a name="whatiscmp"></a>
@@ -289,6 +320,8 @@ Note that the above does not preclude the use of efficient encoding/decoding sch
 
 ## 6. CMP interface requirements<a name="cmpreq"></a>
 Please refer to the policies for the minimal information / functionality that needs to be shown on the first screen of the UI and the information that must be present on second/additional layers of the UI.
+
+Additionally, all live CMP implementations must obfuscate their JavaScript code to help prevent misappropriation of CMP code
 
 # How do vendors outside the RTB bidstream query a CMP?<a name="outsidertb"></a>
 At a high level, all vendors need to query the CMP on the page to get access to consent information in the TC String, parse the consent data in the String, and gate usage of user data based on user consent. This lookup needs to be executed as close as possible to using the user data so that the latest value of consent is used.
