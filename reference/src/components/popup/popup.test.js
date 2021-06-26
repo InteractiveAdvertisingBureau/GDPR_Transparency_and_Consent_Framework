@@ -47,6 +47,27 @@ describe('Popup', () => {
 		popup.onAcceptAll();
 	});
 
+	it('should handle reject all', (done) => {
+		const store = new Store();
+		store.selectAllVendors = jest.fn();
+		store.selectAllPurposes = jest.fn();
+		store.selectAllCustomPurposes = jest.fn();
+
+		let popup;
+		render(<Popup
+			store={store}
+			ref={ref => popup = ref}
+			onSave={() => {
+				expect(store.selectAllVendors.mock.calls[0][0]).to.equal(false);
+				expect(store.selectAllPurposes.mock.calls[0][0]).to.equal(false);
+				expect(store.selectAllCustomPurposes.mock.calls[0][0]).to.equal(false);
+				done();
+			}}
+		/>, scratch);
+
+		popup.onRejectAll();
+	});
+
 	it('should switch between panel states', () => {
 		const store = new Store();
 

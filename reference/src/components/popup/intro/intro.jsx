@@ -21,6 +21,7 @@ export default class Intro extends Component {
 
 		const {
 			onAcceptAll,
+			onRejectAll,
 			onShowPurposes,
 			onClose
 		} = props;
@@ -46,10 +47,16 @@ export default class Intro extends Component {
 						<LocalLabel localizeKey='showPurposes'>Manage your choices</LocalLabel>
 					</Button>
 					<Button
-						class={style.acceptAll}
+						class={style.choiceButton}
 						onClick={onAcceptAll}
 					>
-						<LocalLabel localizeKey='acceptAll'>Got it, thanks!</LocalLabel>
+						<LocalLabel localizeKey='acceptAll'>Accept All</LocalLabel>
+					</Button>
+					<Button
+						class={style.choiceButton}
+						onClick={onRejectAll}
+					>
+						<LocalLabel localizeKey='RejectAll'>Reject All</LocalLabel>
 					</Button>
 				</div>
 			</div>

@@ -15,17 +15,22 @@ div.intro {
 		margin: 4% 0;
 		overflow: auto;
 	}
+
 	.options {
 		display: flex;
 		flex-shrink: 0;
 		width: 100%;
 		padding-bottom: 10px;
+
+		button {
+			margin-right: 10px;
+		}
+		div:first-child{
+			margin-left: 0;
+		}
 	}
-	.rejectAll {
-		flex: 1;
-		margin-right: 10px;
-	}
-	.acceptAll {
+
+	.choiceButton {
 		flex: 1;
 	}
 }

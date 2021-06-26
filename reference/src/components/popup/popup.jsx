@@ -21,6 +21,14 @@ export default class Popup extends Component {
 		onSave();
 	};
 
+	onRejectAll = () => {
+		const { store, onSave } = this.props;
+		store.selectAllVendors(false);
+		store.selectAllPurposes(false);
+		store.selectAllCustomPurposes(false);
+		onSave();
+	};
+
 	onCancel = () => {
 		this.setState({
 			selectedPanelIndex: SECTION_INTRO
@@ -57,6 +65,7 @@ export default class Popup extends Component {
 					<Panel selectedIndex={selectedPanelIndex}>
 						<Intro
 							onAcceptAll={this.onAcceptAll}
+							onRejectAll={this.onRejectAll}
 							onShowPurposes={this.handleShowDetails}
 							onClose={this.handleClose}
 						/>
