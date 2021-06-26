@@ -90,7 +90,7 @@
   },
   "dependencies": {
     "classnames": "^2.2.5",
-    "codemirror": "^5.34.0",
+    "codemirror": "^5.58.2",
     "core-js": "^2.5.3",
     "js-beautify": "^1.7.5",
     "lodash": "^4.17.13",
