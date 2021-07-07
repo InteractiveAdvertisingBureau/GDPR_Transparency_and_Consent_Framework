@@ -442,7 +442,7 @@ TCData = {
 
       /**
        * true - Vendor has been disclosed to the user
-       * false | undefined - Vendor has been disclosed to the user
+       * false | undefined - Vendor has not been disclosed to the user
        */
       '[vendor id]': Boolean
     }
